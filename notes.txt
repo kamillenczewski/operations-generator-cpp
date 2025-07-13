@@ -1,0 +1,5 @@
+To get human-readable assembly code:
+g++ -S source.cpp -o destination.s
+
+Full build
+g++ source.cpp -o destination.exe

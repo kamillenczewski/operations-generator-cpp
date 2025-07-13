@@ -11,7 +11,35 @@
 #include <cmath>
 #include <fstream>
 
-using namespace std;
+
+using std::string;
+using std::to_string;
+using std::ostringstream;
+using std::cout;
+using std::fixed;
+using std::ofstream;
+
+using std::discrete_distribution;
+using std::uniform_int_distribution;
+using std::random_device;
+using std::mt19937;
+
+using std::vector;
+using std::function;
+using std::shared_ptr;
+using std::make_shared;
+using std::unordered_map;
+
+using std::index_sequence;
+using std::tuple;
+using std::index_sequence_for;
+using std::tuple_element_t;
+using std::get;
+
+using std::chrono::nanoseconds;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+
 
 string join(const vector<string>& items, const string& separator)
 {
@@ -27,8 +55,6 @@ string join(const vector<string>& items, const string& separator)
 
     return result;
 }
-
-
 
 template<typename T>
 T choice(const vector<T>& items, const vector<double>& weights) {
@@ -105,11 +131,11 @@ auto countTime(function<void()> func)
 {
     static auto multiplier = pow(10, -9);
 
-    auto start = chrono::high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
     func();
-    auto end = chrono::high_resolution_clock::now();
+    auto end = high_resolution_clock::now();
 
-    return chrono::duration_cast<chrono::nanoseconds>(end - start).count() * multiplier;
+    return duration_cast<nanoseconds>(end - start).count() * multiplier;
 }
 
 
@@ -371,7 +397,7 @@ string generateUUID(int length)
     static mt19937 randomGenerator(random_device{}());
     static uniform_int_distribution<> distribution(0, charsNumber - 1);
 
-    stringstream stream;
+    ostringstream stream;
 
     for (int i = 0; i < length; i++)
     {
